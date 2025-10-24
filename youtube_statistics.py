@@ -6,12 +6,12 @@ class YTstats:
     def __init__(self, api_key, channel_id):
         self.api_key = api_key
         self.channel_id = channel_id
-        self.channel_statistics = channel_statistics = None
+        self.channel_statistics = None
         self.video_data = None
 
 
     def get_channel_statistics(self):
-        url = f'https://www.googleapis.com/youtube/v3/channels/?part=statistics&id={self.channel_id}&key={self.api_key}'
+        url = f'https://www.googleapis.com/youtube/v3/channels?part=statistics&id={self.channel_id}&key={self.api_key}'
         print(url)
         json_url = requests.get(url)
         data = json.loads(json_url.text)
@@ -43,6 +43,7 @@ class YTstats:
             next_vid, npt = self._get_channel_videos_per_page(nexturl)
             vid.update(next_vid)
             idx += 1
+
             
     def _get_channel_videos_per_page(self, url):
         json_url = requests.get(url)
